@@ -3,12 +3,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javafx.collections.MapChangeListener;
-import javafx.collections.ObservableList;
-import javafx.collections.ListChangeListener;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableMap;
-
 public class MainClass {
 
 	
