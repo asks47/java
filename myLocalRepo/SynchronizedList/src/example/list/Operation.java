@@ -3,11 +3,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.concurrent.locks.ReentrantLock;
 
-import javafx.collections.ObservableMap;
-import example.list.MainClass;
 public class Operation {
-	
-	synchronized public void begin(ReentrantLock bufferLock,int transID,HashSet<String> personSet,HashMap<String, Integer> bufferSet,String arg1,String arg2){
+	ReentrantLock bufferLock = new ReentrantLock(true);
+	HashMap<String, Integer> bufferSet = new HashMap<String, Integer>();
+	synchronized public void begin(int transID,HashSet<String> personSet,String arg1,String arg2){
 	
 	if(bufferLock.tryLock()==true){
 		System.out.println("Got lock on bufferSet >>");
@@ -36,9 +35,9 @@ public class Operation {
 	}
 
 synchronized public void add(ReentrantLock bufferLock,String arg1,String arg2,HashSet<String> personSet,HashMap<String, Integer> bufferSet){
+	if(bufferLock.tryLock()==true){
 	personSet.add(arg1);
 	personSet.add(arg2);
-	if(bufferLock.tryLock()==true){
 	bufferSet.remove(arg1);
 	bufferSet.remove(arg2);
 	bufferLock.unlock();
@@ -50,10 +49,10 @@ synchronized public void add(ReentrantLock bufferLock,String arg1,String arg2,Ha
 	
 	}
 synchronized public void update(ReentrantLock bufferLock,String arg1,String arg2,HashSet<String> personSet,HashMap<String, Integer> bufferSet){
+	if(bufferLock.tryLock()==true){
 	personSet.remove(arg2);
 	personSet.add(arg1);
 	System.out.println("After update personSet >>>" +personSet);
-	if(bufferLock.tryLock()==true){
 	bufferSet.remove(arg1);
 	bufferSet.remove(arg2);
 	bufferLock.unlock();
