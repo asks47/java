@@ -24,7 +24,8 @@ public class Trans2 extends Thread {
 			//System.out.println("personSet<<>> "+personSet);
 			System.out.println("Trans2 calling begin<<>>");
 			opr.begin(personSet,bufferSet,name1,name2);
-			
+			System.out.println("Trans2 calling COMMIT<<>>");
+			opr.commit(name1, name2, personSet, bufferSet);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
